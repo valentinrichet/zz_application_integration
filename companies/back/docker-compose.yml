@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  company:
+    image: ${DOCKER_REGISTRY-}company
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - "8080:8080"
+    networks:
+      - mariadb_default
+
+networks:
+  mariadb_default:
+    external: true
