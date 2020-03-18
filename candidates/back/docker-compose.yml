@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  candidate:
+    image: ${DOCKER_REGISTRY-}candidate
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8081"
+    networks:
+      - mariadb_default
+
+networks:
+  mariadb_default:
+    external: true
