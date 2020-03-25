@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Reflection;
 using System.IO;
-using MeetSport.Options;
+using AiCompany.Options;
 using AiCompany.Services.PasswordHasher;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;

@@ -1,4 +1,4 @@
-﻿using MeetSport.Options;
+﻿using AiCompany.Options;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;

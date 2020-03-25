@@ -1,4 +1,4 @@
-﻿using MeetSport.Options;
+﻿using AiCompany.Options;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
