@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  company:
+  back_company:
     image: ${DOCKER_REGISTRY-}company
     build:
       context: .
@@ -9,7 +9,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
-      - "8080:8080"
+      - "8082:80"
     networks:
       - mariadb_default
 
