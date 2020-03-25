@@ -26,7 +26,7 @@ namespace AiCandidate.Controllers
 
         protected bool IsUser(ulong id)
         {
-            return User.FindFirst(claim => claim.Type == JwtGenerator.CustomClaimTypes.Id && claim.Value == id.ToString()) != null;
+            return User.FindFirst(claim => claim.Type == JwtGenerator.CustomClaimTypes.Type && claim.Value == "CANDIDATE") != null && User.FindFirst(claim => claim.Type == JwtGenerator.CustomClaimTypes.Id && claim.Value == id.ToString()) != null;
         }
     }
 }
