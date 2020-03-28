@@ -1,0 +1,14 @@
+<mat-toolbar>
+    <span>Companies</span>
+    <ng-container *ngIf="company != null">
+        <span>: {{ company.mail }}</span>
+        <span class="spacer"></span>
+        <button mat-icon-button aria-label="Disconnect Button" (click)="signOut()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </ng-container>
+
+</mat-toolbar>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

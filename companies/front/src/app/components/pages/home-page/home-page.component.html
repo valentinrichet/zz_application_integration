@@ -1,0 +1,72 @@
+<mat-card>
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+        <div class="container-title top-marger bottom-marger">
+            <mat-icon color="warn" class="icon-title">lock</mat-icon>
+            <h1>Login Information</h1>
+        </div>
+        <div class="container">
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="example@example.com" [formControl]="updateForm.controls.mail"
+                    required>
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error
+                    *ngIf="updateForm.controls.mail.hasError('email') && !updateForm.controls.mail.hasError('required')">
+                    Not a valid email address
+                </mat-error>
+                <mat-error *ngIf="updateForm.controls.mail.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" [formControl]="updateForm.controls.password">
+                <mat-icon matSuffix>lock</mat-icon>
+                <mat-error *ngIf="updateForm.controls.password.hasError('minlength')">
+                    Password must have a length of <strong>6 characters</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="container-title bottom-marger">
+            <mat-icon color="warn" class="icon-title">bar_chart</mat-icon>
+            <h1>Company Information</h1>
+        </div>
+        <div class="container">
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" placeholder="ISIMA" [formControl]="updateForm.controls.name" required>
+                <mat-icon matSuffix>business</mat-icon>
+                <mat-error *ngIf="updateForm.controls.name.hasError('required')">
+                    Name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Address</mat-label>
+                <textarea matInput type="text" placeholder="1 Rue de la Chebarde, 63178 Aubière"
+                    [formControl]="updateForm.controls.address" required></textarea>
+                <mat-error *ngIf="updateForm.controls.address.hasError('required')">
+                    Address is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Description</mat-label>
+                <textarea matInput type="text"
+                    placeholder="L'Institut d'informatique d'Auvergne anciennement nommée Institut Supérieur d'Informatique."
+                    [formControl]="updateForm.controls.description" required></textarea>
+                <mat-error *ngIf="updateForm.controls.description.hasError('required')">
+                    Description is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="container bottom-marger">
+            <button mat-raised-button color="primary" type="submit"
+                [disabled]="!updateForm.valid || isLoading">UPDATE</button>
+            <button mat-raised-button color="warn" type="button" [disabled]="isLoading"
+                (click)="onReset()">RESET</button>
+        </div>
+        <div class="container" *ngIf="isLoading">
+            <mat-progress-spinner mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </form>
+</mat-card>
