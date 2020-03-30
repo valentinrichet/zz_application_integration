@@ -1,0 +1,188 @@
+<mat-card>
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+        <div class="container-title top-marger bottom-marger">
+            <mat-icon color="warn" class="icon-title">lock</mat-icon>
+            <h1>Login Information</h1>
+        </div>
+        <div class="container">
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="example@example.com" formControlName="mail" required>
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error
+                    *ngIf="updateForm.controls.mail.hasError('email') && !updateForm.controls.mail.hasError('required')">
+                    Not a valid email address
+                </mat-error>
+                <mat-error *ngIf="updateForm.controls.mail.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password">
+                <mat-icon matSuffix>lock</mat-icon>
+                <mat-error *ngIf="updateForm.controls.password.hasError('minlength')">
+                    Password must have a length of <strong>6 characters</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="container-title bottom-marger">
+            <mat-icon color="warn" class="icon-title">assignment_ind</mat-icon>
+            <h1>Candidate Information</h1>
+        </div>
+        <div class="container">
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>First Name</mat-label>
+                <input matInput type="text" placeholder="John" formControlName="firstName" required>
+                <mat-error *ngIf="updateForm.controls.firstName.hasError('required')">
+                    First name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Last Name</mat-label>
+                <input matInput type="text" placeholder="Doe" formControlName="lastName" required>
+                <mat-error *ngIf="updateForm.controls.lastName.hasError('required')">
+                    Last name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="container">
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Address</mat-label>
+                <textarea matInput type="text" placeholder="1 Rue de la Chebarde, 63178 Aubière"
+                    formControlName="address" required></textarea>
+                <mat-error *ngIf="updateForm.controls.address.hasError('required')">
+                    Address is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Description</mat-label>
+                <textarea matInput type="text"
+                    placeholder="L'Institut d'informatique d'Auvergne anciennement nommée Institut Supérieur d'Informatique."
+                    formControlName="description" required></textarea>
+                <mat-error *ngIf="updateForm.controls.description.hasError('required')">
+                    Description is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="container-title bottom-marger">
+            <mat-icon color="warn" class="icon-title">grade</mat-icon>
+            <h1>Candidate Skills</h1>
+        </div>
+        <div formArrayName="skills" class="container bottom-marger">
+            <ng-container *ngFor="let skill of skillsFormArray.controls; let i = index;">
+                <mat-checkbox [formControlName]="i">
+                    {{ skills[i].title }}
+                </mat-checkbox>
+            </ng-container>
+        </div>
+        <div class="container-title bottom-marger">
+            <mat-icon color="warn" class="icon-title">menu_book</mat-icon>
+            <h1>Candidate Educations</h1>
+        </div>
+        <div class="container bottom-marger">
+            <button mat-mini-fab color="primary" aria-label="Add Education Button" type="button"
+                (click)="addEducation()">
+                <mat-icon color="secondary">add</mat-icon>
+            </button>
+        </div>
+        <div formArrayName="educations" class="bottom-marger">
+            <ng-container *ngFor="let educationControl of educationsFormArray.controls; let i = index;">
+                <div [formGroupName]="i" class="container bottom-marger">
+                    <mat-form-field appearance="fill" class="bottom-marger">
+                        <mat-label>Title</mat-label>
+                        <input matInput type="text" placeholder="MSc in Software Engineering" formControlName="title"
+                            required>
+                        <mat-error *ngIf="educationsFormGroup(i).controls.title.hasError('required')">
+                            Title is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="bottom-marger">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput type="text" placeholder="C, C++, Java, .NET..." formControlName="description"
+                            required></textarea>
+                        <mat-error *ngIf="educationsFormGroup(i).controls.description.hasError('required')">
+                            Description is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Level</mat-label>
+                        <mat-select required formControlName="level">
+                            <mat-option *ngFor="let level of levels" [value]="level">
+                                {{ level }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-mini-fab color="primary" aria-label="Remove Education Button" type="button"
+                        (click)="removeEducation(i)">
+                        <mat-icon color="secondary">delete</mat-icon>
+                    </button>
+                    <input type="hidden" formControlName="id">
+                </div>
+            </ng-container>
+        </div>
+        <div class="container-title bottom-marger">
+            <mat-icon color="warn" class="icon-title">business_center</mat-icon>
+            <h1>Candidate Experiences</h1>
+        </div>
+        <div class="container bottom-marger">
+            <button mat-mini-fab color="primary" aria-label="Add Experience Button" type="button"
+                (click)="addExperience()">
+                <mat-icon color="secondary">add</mat-icon>
+            </button>
+        </div>
+        <div formArrayName="experiences" class="bottom-marger">
+            <ng-container *ngFor="let experienceControl of experiencesFormArray.controls; let i = index;">
+                <div [formGroupName]="i" class="container bottom-marger">
+                    <mat-form-field appearance="fill" class="bottom-marger">
+                        <mat-label>Title</mat-label>
+                        <input matInput type="text" placeholder="Junior Software Engineer" formControlName="title"
+                            required>
+                        <mat-error *ngIf="experiencesFormGroup(i).controls.title.hasError('required')">
+                            Title is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="bottom-marger">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput type="text" placeholder="Worked on Angular applications"
+                            formControlName="description" required></textarea>
+                        <mat-error *ngIf="experiencesFormGroup(i).controls.description.hasError('required')">
+                            Description is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Start</mat-label>
+                            <input matInput [matDatepicker]="dpstart_i" formControlName="start" required (click)="dpstart_i.open()">
+                            <mat-datepicker-toggle matSuffix [for]="dpstart_i"></mat-datepicker-toggle>
+                            <mat-datepicker #dpstart_i></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <mat-label>End</mat-label>
+                            <input matInput [matDatepicker]="dpend_i" formControlName="end">
+                            <mat-datepicker-toggle matSuffix [for]="dpend_i"></mat-datepicker-toggle>
+                            <mat-datepicker #dpend_i></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                    <button mat-mini-fab color="primary" aria-label="Remove Experience Button" type="button"
+                        (click)="removeExperience(i)">
+                        <mat-icon color="secondary">delete</mat-icon>
+                    </button>
+                    <input type="hidden" formControlName="id">
+                </div>
+            </ng-container>
+        </div>
+        <div class="container-submit bottom-marger">
+            <button mat-raised-button color="primary" type="submit"
+                [disabled]="!updateForm.valid || isLoading">UPDATE</button>
+            <button mat-raised-button color="warn" type="button" [disabled]="isLoading"
+                (click)="onReset()">RESET</button>
+        </div>
+        <div class="container" *ngIf="isLoading">
+            <mat-progress-spinner mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </form>
+</mat-card>

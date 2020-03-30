@@ -1,0 +1,37 @@
+<mat-card>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="container top-marger">
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="example@example.com" formControlName="mail"
+                    required>
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error
+                    *ngIf="loginForm.controls.mail.hasError('email') && !loginForm.controls.mail.hasError('required')">
+                    Not a valid email address
+                </mat-error>
+                <mat-error *ngIf="loginForm.controls.mail.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" required>
+                <mat-icon matSuffix>lock</mat-icon>
+                <mat-error *ngIf="loginForm.controls.password.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="container bottom-marger">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid || isLoading"
+                (click)="onSignIn()">SIGN IN</button>
+            <button mat-raised-button color="warn" type="submit" [disabled]="!loginForm.valid || isLoading"
+                (click)="onSignUp()">SIGN UP</button>
+        </div>
+        <div class="container" *ngIf="isLoading">
+            <mat-progress-spinner mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </form>
+</mat-card>

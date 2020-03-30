@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  back_company:
+    image: ${DOCKER_REGISTRY-}candidate-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8085:80"
