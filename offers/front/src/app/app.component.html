@@ -1,0 +1,14 @@
+<mat-toolbar>
+    <span>Offers</span>
+    <ng-container *ngIf="candidate != null || company != null">
+        <span>: {{ candidate != null ? '[CAND] ' + candidate.mail : "" }}{{ company != null ? '[COMP] ' + company.mail : "" }}</span>
+        <span class="spacer"></span>
+        <button mat-icon-button aria-label="Disconnect Button" (click)="signOut()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </ng-container>
+
+</mat-toolbar>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

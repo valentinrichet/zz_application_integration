@@ -1,0 +1,65 @@
+<mat-card>
+    <form [formGroup]="offerForm" (ngSubmit)="onSubmit()">
+        <div class="container-title top-marger bottom-marger">
+            <mat-icon color="warn" class="icon-title">description</mat-icon>
+            <h1>Company Offers</h1>
+        </div>
+        <div class="container">
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Title</mat-label>
+                <input matInput type="text" placeholder="Software Engineer" formControlName="title" required>
+                <mat-error *ngIf="offerForm.controls.title.hasError('required')">
+                    Title is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Description</mat-label>
+                <textarea matInput type="text" placeholder="Tech: ASP.NET Core, Angular..."
+                    formControlName="description" required></textarea>
+                <mat-error *ngIf="offerForm.controls.description.hasError('required')">
+                    Description is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="bottom-marger">
+                <mat-label>Level</mat-label>
+                <mat-select formControlName="level">
+                    <mat-option *ngFor="let level of levels" [value]="level">
+                        {{ level }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="bottom-marger">
+                <mat-label>Type</mat-label>
+                <mat-select required formControlName="type">
+                    <mat-option *ngFor="let type of types" [value]="type">
+                        {{ type }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="bottom-marger">
+                <mat-label>Wage</mat-label>
+                <input matInput type="number" placeholder="40000" formControlName="wage">
+                <mat-error *ngIf="offerForm.controls.wage.hasError('pattern')">
+                    Wage must be a valid number
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div formArrayName="skills" class="container bottom-marger">
+            <ng-container *ngFor="let skill of skillsFormArray.controls; let i = index;">
+                <mat-checkbox [formControlName]="i">
+                    {{ skills[i].title }}
+                </mat-checkbox>
+            </ng-container>
+        </div>
+        <div class="container-submit bottom-marger">
+            <button mat-raised-button color="primary" type="submit"
+                [disabled]="!offerForm.valid || isLoading">CREATE</button>
+            <button mat-raised-button color="warn" type="button" [disabled]="isLoading"
+                (click)="onReset()">RESET</button>
+        </div>
+        <div class="container" *ngIf="isLoading">
+            <mat-progress-spinner mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </form>
+</mat-card>

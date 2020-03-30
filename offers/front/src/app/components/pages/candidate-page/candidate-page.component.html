@@ -1,0 +1,11 @@
+<mat-card>
+    <cdk-virtual-scroll-viewport style="height: 82vh;" itemSize="50">
+        <div style="height: 50px;" *cdkVirtualFor="let item of dataSource">
+            {{ item?.company.name }} [{{ item?.company.mail }}]: {{ item?.title }}
+        </div>
+        <div style="height: 50px;" class="container" *ngIf="isLoading | async">
+            <mat-progress-spinner diameter="50" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </cdk-virtual-scroll-viewport>
+</mat-card>
